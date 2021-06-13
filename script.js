@@ -22,36 +22,57 @@ form.addEventListener("submit", function () {
 
    let pilotName = document.getElementById("pilotName");
    let copilotName = document.getElementById("copilotName");
-   let fuelLevel = document.getElementById("fuelLevel");
+   //let fuelStatus = document.getElementById("fuelStatus");
    let cargoMass = document.getElementById("cargoMass");
    let faultyItems = document.getElementById("faultyItems");
-   let fuelStatus = document.getElementById("fuelStatus");
+   let fuelLevel = document.getElementById("fuelLevel");
    let pilotStatus = document.getElementById("pilotStatus");
    let copilotStatus = document.getElementById("copilotStatus");
    let launchStatus = document.getElementById("launchStatus");
-   let cargoStatus = document.getElementById("cargoStatus");
+   //let cargoLevel = document.getElementById("cargoLevel");
 
    if (pilotName.value === ("") || copilotName.value === ("") || fuelLevel.value === ("") || cargoMass.value === ("")) {
       alert("All Fields are Required!");
       event.preventDefault();
+
    } else if (isNaN(fuelLevel.value) || isNaN(cargoMass.value)) {
        alert("A numerical response is required for Fuel Level and Cargo Mass.");
        event.preventDefault();
+
    } else if (!isNaN(pilotName.value) || !isNaN(copilotName)) {
       alert("Pilot and Co Pilot should be letters.")
       event.preventDefault();
-   } else if (fuelLevel.value < 10000) {
+
+   } else if (fuelLevel.value < 9999) {
       //part 1
-      document.getElementById
-      alert("There is not enough fuel for the journey")
+      launchStatus.innerHTML = `Shuttle Not Ready for Launch`;
+      launchStatus.style.color = "red";
+      faultyItems.style.visibility = "visible";
+      document.getElementById("fuelStatus").innerHTML = `There is not enough fuel for the journey`;
+      pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch`;
+      copilotStatus.innerHTML = `Co-Pilot ${copilotName.value} is ready for launch`;
+      event.preventDefault();
+
    } else if (cargoMass.value > 10000) {
       //part 2
+      launchStatus.innerHTML = `Shuttle Not Ready for Launch`;
+      launchStatus.style.color = "red";
+      faultyItems.style.visibility = "visible";
+      document.getElementById("cargoStatus").innerHTML = `There is Too Much Mass for Launch`;
+      pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch`;
+      copilotStatus.innerHTML = `Co-Pilot ${copilotName.value} is ready for launch`;
+      event.preventDefault();
+
+   } else if (fuelLevel.value >= 10000 && cargoMass.value < 9999) {
+      launchStatus.innerHTML = `Shuttle Ready for Launch`;
+      launchStatus.style.color = "green";
+      //faultyItems.style.visibility = "visible";
+      //document.getElementById("fuelStatus").innerHTML = `Enough fuel present for journey`;
+      //document.getElementById("cargoStatus").innerHTML = `There is Too Much Mass for Launch`;
+      //pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch`;
+      //copilotStatus.innerHTML = `Co-Pilot ${copilotName.value} is ready for launch`;
+      event.preventDefault();
    }
-
-
-
-
-
    //check if the fuel level is too low; part 1
    //if too low change the faulty items to visible ----css, update the fuel status id stating not enough fuel
    //use inner html to change text in html element (.innerHTML)
@@ -59,7 +80,8 @@ form.addEventListener("submit", function () {
    //check if cargo mass is too high; part 2
    //
 
-})
+}) 
+   //event.preventDefault();
 
 })
 
