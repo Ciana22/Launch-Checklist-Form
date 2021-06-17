@@ -40,10 +40,10 @@ form.addEventListener("submit", function () {
        event.preventDefault();
 
    } else if (!isNaN(pilotName.value) || !isNaN(copilotName)) {
-      alert("Pilot and Co Pilot should be letters.")
+      alert("Pilot and Co Pilot should be letters.");
       event.preventDefault();
 
-   } else if (fuelLevel.value < 9999) {
+   } else if (fuelLevel.value < 10000 && cargoMass.value < 10000) {
       //part 1
       launchStatus.innerHTML = `Shuttle Not Ready for Launch`;
       launchStatus.style.color = "red";
@@ -53,7 +53,7 @@ form.addEventListener("submit", function () {
       copilotStatus.innerHTML = `Co-Pilot ${copilotName.value} is ready for launch`;
       event.preventDefault();
 
-   } else if (cargoMass.value > 10000) {
+   } else if (fuelLevel.value >= 10000 && cargoMass.value > 10000) {
       //part 2
       launchStatus.innerHTML = `Shuttle Not Ready for Launch`;
       launchStatus.style.color = "red";
@@ -63,7 +63,17 @@ form.addEventListener("submit", function () {
       copilotStatus.innerHTML = `Co-Pilot ${copilotName.value} is ready for launch`;
       event.preventDefault();
 
-   } else if (fuelLevel.value >= 10000 && cargoMass.value < 9999) {
+   } else if (fuelLevel.value < 10000 && cargoMass.value > 10000) {
+      launchStatus.innerHTML = `Shuttle Not Ready for Launch`;
+      launchStatus.style.color = "red";
+      faultyItems.style.visibility = "visible";
+      document.getElementById("fuelStatus").innerHTML = `There is not enough fuel for the journey`;
+      document.getElementById("cargoStatus").innerHTML = `There is Too Much Mass for Launch`;
+      pilotStatus.innerHTML = `Pilot ${pilotName.value} is ready for launch`;
+      copilotStatus.innerHTML = `Co-Pilot ${copilotName.value} is ready for launch`;
+      event.preventDefault();     
+   
+   } else if (fuelLevel.value >= 10000 && cargoMass.value < 10000) {
       launchStatus.innerHTML = `Shuttle Ready for Launch`;
       launchStatus.style.color = "green";
       //faultyItems.style.visibility = "visible";
@@ -79,9 +89,10 @@ form.addEventListener("submit", function () {
    //use style property of html element to change the stying of the element (.style)
    //check if cargo mass is too high; part 2
    //
+   });
 
-}) 
-   //event.preventDefault();
+
+   event.preventDefault();
 
 })
 
